@@ -1,0 +1,33 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/todo?characterEncoding=UTF-8&serverTimezone=UTC
+    username: root
+    password: 1234
+
+  jpa:
+    open-in-view: false
+    properties:
+      hibernate:
+        show-sql: true
+        ddl-auto: create-drop
+        format_sql: true
+        highlight_sql: true
+        use_sql_comments: true
+        default_batch_fetch_size: 100
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        jdbc:
+          batch_size: 100
+
+logging:
+  level:
+    org.springframework: INFO
+    org.hibernate: INFO
+
+#logging:
+#  level:
+#
+#
+#    # org.hibernate.SQL: DEBUG
+#    org.hibernate.type.descriptor.sql: TRACE
+#    org.springframework.transaction.interceptor: TRACE
