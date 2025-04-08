@@ -25,7 +25,13 @@ public class Task extends BaseTimeEntity {
 
     private boolean isCompleted;
 
+    @Enumerated(value = EnumType.STRING)
     private Type type;
+
+    public enum Type {
+        NORMAL, ROUTINE
+    }
+
 
 }
 
