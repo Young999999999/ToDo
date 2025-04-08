@@ -10,4 +10,5 @@ public interface MemberRepository{
     Optional<Member> findMemberById(Long memberId);
 
     Member save(Member member);
+
 }

@@ -21,7 +21,7 @@ public class RoutineController {
         addRoutineService.addRoutine(createRoutineReqDTO, memberId);
     }
 
-    @DeleteMapping("/routine/{memberId}/{routineId}")
+    @DeleteMapping("/{memberId}/{routineId}")
     public void removeRoutine(@PathVariable Long memberId, @PathVariable Long routineId){
         removeRoutineService.removeRoutine(memberId, routineId);
     }

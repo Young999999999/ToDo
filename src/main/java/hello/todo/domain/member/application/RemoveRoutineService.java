@@ -8,6 +8,8 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 import static hello.todo.domain.member.application.MemberServiceHelper.*;
 
 @Service
@@ -20,12 +22,7 @@ public class RemoveRoutineService {
     @Transactional
     public void removeRoutine(Long memberId,Long deleteRoutineId){
         Member member = findExistingMember(memberRepository,memberId);
-
-        for(Routine routine: member.getRoutines()){
-            if(routine.getId().equals(deleteRoutineId)){
-                member.removeRoutine(routine);
-            }
-        }
-
+        //조건에 따라 컬렉션에서 삭제
+        member.getRoutines().removeIf(routine -> routine.getId().equals(deleteRoutineId));
     }
 }
