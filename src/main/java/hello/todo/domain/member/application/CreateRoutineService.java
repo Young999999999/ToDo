@@ -5,7 +5,6 @@ import hello.todo.domain.member.domain.MemberRepository;
 import hello.todo.domain.member.domain.Routine;
 import hello.todo.domain.member.presentation.dto.request.CreateRoutineReqDTO;
 import jakarta.transaction.Transactional;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +12,7 @@ import static hello.todo.domain.member.application.MemberServiceHelper.*;
 
 @Service
 @RequiredArgsConstructor
-public class AddRoutineService {
+public class CreateRoutineService {
 
     private final MemberRepository memberRepository;
 
