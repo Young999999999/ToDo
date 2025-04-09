@@ -1,7 +1,8 @@
 package hello.todo.domain.member.domain;
 
 import hello.todo.common.BaseTimeEntity;
-import hello.todo.domain.member.presentation.dto.request.CreateRoutineReqDTO;
+import hello.todo.domain.routine.domain.Routine;
+import hello.todo.domain.routine.presentation.dto.request.CreateRoutineReqDTO;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -27,21 +28,6 @@ public class Member extends BaseTimeEntity {
 
     private String nickname;
 
-    @OneToMany( mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Routine> routines = new ArrayList<>();
-
-    //원자화된 양방향 메서드
-    public void addRoutine(Routine routine) {
-        routines.add(routine);
-        routine.changeMember(this);
-    }
-
-
-
-    //수정해야함
-    public void removeRoutine(Long deleteRoutineId){
-        routines.removeIf(routine -> routine.getId().equals(deleteRoutineId));
-    }
 
     //팩토리 메서드 패턴
     private Member(String email, String password, String nickname) {
@@ -55,9 +41,5 @@ public class Member extends BaseTimeEntity {
     }
 
 
-    //TODO: end가 start보다 더 앞선 경우 예외 보내줘야함
-    public Routine createRoutine(CreateRoutineReqDTO dto){
-        return new Routine(dto.name(),dto.cycles(),dto.startDate(),dto.endDate());
-    }
 
 }

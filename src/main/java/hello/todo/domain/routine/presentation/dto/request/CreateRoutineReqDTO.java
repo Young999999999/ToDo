@@ -1,10 +1,8 @@
-package hello.todo.domain.member.presentation.dto.request;
+package hello.todo.domain.routine.presentation.dto.request;
 
-import hello.todo.domain.member.domain.Cycle;
-import hello.todo.domain.member.domain.Routine;
+import hello.todo.domain.routine.domain.Cycle;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
 
 import java.time.LocalDate;
 import java.util.List;

@@ -1,4 +1,4 @@
-package hello.todo.domain.member.domain;
+package hello.todo.domain.routine.domain;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
