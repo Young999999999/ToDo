@@ -36,8 +36,11 @@ public class Member extends BaseTimeEntity {
         routine.changeMember(this);
     }
 
-    public void removeRoutine(Routine routine){
-        routines.remove(routine);
+
+
+    //수정해야함
+    public void removeRoutine(Long deleteRoutineId){
+        routines.removeIf(routine -> routine.getId().equals(deleteRoutineId));
     }
 
     //팩토리 메서드 패턴
@@ -54,7 +57,7 @@ public class Member extends BaseTimeEntity {
 
     //TODO: end가 start보다 더 앞선 경우 예외 보내줘야함
     public Routine createRoutine(CreateRoutineReqDTO dto){
-        return new Routine(dto.name(),dto.cycle(),dto.startDate(),dto.endDate());
+        return new Routine(dto.name(),dto.cycles(),dto.startDate(),dto.endDate());
     }
 
 }
