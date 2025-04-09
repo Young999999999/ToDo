@@ -21,6 +21,7 @@ public class AddRoutineService {
     public void addRoutine(CreateRoutineReqDTO dto,Long memberId){
         Member member = findExistingMember(memberRepository,memberId);
         Routine routine = member.createRoutine(dto);
+        System.out.println(routine);
         member.addRoutine(routine);
     }
 }
