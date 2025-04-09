@@ -64,8 +64,7 @@ public class Routine extends BaseTimeEntity {
             throw new CycleNotFoundException("주기가 존재하지 않습니다.");
         }
 
-        this.cycles = cycles;
-        cycles.forEach(cycle -> cycle.changeRoutine(this));
+        cycles.forEach(cycle -> addCycle(cycle));
     }
 }
 
