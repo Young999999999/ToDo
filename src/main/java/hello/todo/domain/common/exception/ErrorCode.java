@@ -1,0 +1,24 @@
+package hello.todo.domain.common.exception;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import org.springframework.http.HttpStatus;
+
+@Getter
+@AllArgsConstructor
+public enum ErrorCode {
+
+    //MEMBER
+    MEMBER_NOT_FOUND(HttpStatus.NOT_FOUND,"MEMBER-001","사용자가 존재하지 않습니다."),
+
+    //ROUTINE
+    ROUTINE_NOT_FOUND(HttpStatus.NOT_FOUND,"ROUTINE-001","루틴이 존재하지 않습니다."),
+
+    //Other Error
+    UNKNOWN_ERROR(HttpStatus.INTERNAL_SERVER_ERROR,"UNKNOWN-001","알 수 없는 에러입니다.");
+
+
+    private final HttpStatus httpStatus;	// 에러 응답 상태 (404)
+    private final String code;				// 에러 코드 (ACCOUNT-001)
+    private final String message;           // 에러 메세지 ("사용자가 존재하지 않음")
+}
