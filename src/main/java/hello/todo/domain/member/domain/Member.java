@@ -18,23 +18,23 @@ public class Member extends BaseTimeEntity {
 
     private String email;
 
-    //TODO 비밀번호 암호화
-    private String password;
-
     private String nickname;
 
+    @Enumerated(value = EnumType.STRING)
+    private Role role;
 
     //팩토리 메서드 패턴
-    private Member(String email, String password, String nickname) {
+    private Member(String email, String nickname) {
         this.email = email;
-        this.password = password;
         this.nickname = nickname;
     }
 
-    static public Member of(String email, String password, String nickname) {
-        return new Member(email, password, nickname);
+    static public Member of(String email, String nickname) {
+        return new Member(email, nickname);
     }
 
-
-
+    @Getter
+    enum Role {
+        USER,ADMIN;
+    }
 }
