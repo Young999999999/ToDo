@@ -6,6 +6,8 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
@@ -19,9 +21,13 @@ public class Task extends BaseTimeEntity {
 
     private Long routineId;
 
+    private String name;
+
     private String title;
 
     private String content;
+
+    private LocalDate taskDate;
 
     private boolean isCompleted;
 

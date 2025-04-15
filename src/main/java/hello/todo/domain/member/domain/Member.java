@@ -1,15 +1,10 @@
 package hello.todo.domain.member.domain;
 
 import hello.todo.common.BaseTimeEntity;
-import hello.todo.domain.routine.domain.Routine;
-import hello.todo.domain.routine.presentation.dto.request.CreateRoutineReqDTO;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
