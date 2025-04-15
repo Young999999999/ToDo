@@ -1,7 +1,6 @@
 package hello.todo.domain.routine.domain;
 
 import hello.todo.common.BaseTimeEntity;
-import hello.todo.domain.member.domain.exception.CycleNotFoundException;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
