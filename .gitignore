@@ -26,7 +26,7 @@
 .idea/**/dynamic.xml
 .idea/**/uiDesigner.xml
 .idea/**/dbnavigator.xml
-
+.idea/**
 # Gradle
 .idea/**/gradle.xml
 .idea/**/libraries
@@ -200,3 +200,24 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,intellij,java,windows
+
+# yml 파일
+*.yml
+
+# IntelliJ / Eclipse / VSCode 프로젝트 설정
+/.idea/
+/*.iml
+/.project
+/.settings/
+/.vscode/
+
+# Gradle 폴더
+/.gradle/
+/build/
+
+# Lombok 관련 (컴파일 시에만 필요)
+lombok.config
+
+# Test Reports
+/test-output/
+/test-results/

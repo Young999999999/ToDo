@@ -3,6 +3,7 @@ package hello.todo.domain.auth.login.service;
 import hello.todo.domain.auth.login.service.dto.response.GoogleAccessTokenResDTO;
 import hello.todo.domain.auth.login.service.dto.response.GoogleUserInfoResDTO;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
@@ -11,6 +12,9 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestClient;
 
+import java.util.Base64;
+
+@Slf4j
 @Service
 public class GoogleOAuthService {
 
@@ -24,6 +28,14 @@ public class GoogleOAuthService {
         this.googleCodeClient = googleCodeClient;
         this.googleTokenClient = googleTokenClient;
     }
+
+    public void signupAndGetJwtTokens(String code) {
+        MultiValueMap<String, String> map = getMultiValueMap(code);
+        getUserInfo(map);
+        //Optional<Parent> optionalParent = userRepository.findParentBySocialIdAndLoginType(userInfo.getSocialId(), type);
+
+    }
+
 
 //    public void signupAndGetJwtTokens(String code) {
 //        MultiValueMap<String, String> map = getMultiValueMap(code);
@@ -54,19 +66,21 @@ public class GoogleOAuthService {
     }
 
 
-    private void  getUserInfo(MultiValueMap<String, String> map) {
+    private void getUserInfo(MultiValueMap<String, String> map) {
 
         //google로부터 에세스 토큰 가져옴
         GoogleAccessTokenResDTO googleAccessToken = requestAccessTokenFromGoogle(map);
-
-        googleAccessToken.id_token();
+        String idToken = googleAccessToken.id_token();
+        log.info("IdToken:" + idToken);
+        String headerJson = new String(Base64.getUrlDecoder().decode(idToken));
+        log.info("JwtDecode : " + headerJson);
         //에세스 토큰으로부터 구글 계정 정보 가져옴
         //GoogleUserInfoResDTO googleUserInfo = getUserInfoFromGoogle(googleAccessToken.access_token());
 
     }
 
     private GoogleAccessTokenResDTO requestAccessTokenFromGoogle(MultiValueMap<String, String> map) {
-
+            log.info("Google 토큰 발급 받기 시작");
             return googleCodeClient.post()
                     .uri("/token")
                     .contentType(MediaType.APPLICATION_FORM_URLENCODED)
