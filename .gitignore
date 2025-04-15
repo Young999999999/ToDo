@@ -215,6 +215,9 @@ $RECYCLE.BIN/
 /.gradle/
 /build/
 
+
+HELP.md
+
 # Lombok 관련 (컴파일 시에만 필요)
 lombok.config
 
