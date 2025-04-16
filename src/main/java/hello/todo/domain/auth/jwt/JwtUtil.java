@@ -2,14 +2,18 @@ package hello.todo.domain.auth.jwt;
 
 import hello.todo.domain.common.exception.CustomException;
 import hello.todo.domain.common.exception.ErrorCode;
+import hello.todo.domain.member.domain.Member;
+import hello.todo.domain.member.domain.Role;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
+import org.springframework.util.StringUtils;
 
 
 import java.security.Key;
 import java.time.*;
 import java.util.Date;
+import java.util.Optional;
 
 
 @RequiredArgsConstructor
@@ -21,10 +25,11 @@ public class JwtUtil {
         return Keys.hmacShaKeyFor(secret.getBytes());
     }
 
-    public String generateAccessToken(Long userId) {
+    public String generateAccessToken(Long userId, Role role) {
 
         return Jwts.builder()
                 .setSubject(userId.toString())
+                .claim("role",role.name())
                 .setIssuedAt(new Date())
                 .setExpiration(getExpirationDateAfter1hour())
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)
@@ -41,10 +46,12 @@ public class JwtUtil {
                 .compact();
     }
 
-//    public boolean validateTokenAndId(String token,Long userId) {
-//        Long tokenUserId = getUserIdFromToken(token);
-//        return (tokenUserId.equals(userId) && !isTokenExpired(token));
-//    }
+    public Role getRoleFromToken(String token){
+        Claims claims = getAllClaimsFromToken(token);
+        String role = claims.get("role", String.class);
+        return Role.valueOf(role);
+
+    }
 
     public boolean validateToken(String token) {
         return !isTokenExpired(token);

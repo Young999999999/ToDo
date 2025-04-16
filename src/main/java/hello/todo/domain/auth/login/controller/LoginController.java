@@ -26,10 +26,10 @@ public class LoginController {
 
     @GetMapping("/oauth/url")
     public ResponseEntity<Void> redirectGoogleLoginUrl(){
-        String redirectUrl = "https://accounts.google.com/o/oauth2/auth?scope=https://www.googleapis.com/auth/userinfo.email+https://www.googleapis.com/auth/userinfo.profile&response_type=code&access_type=offline&redirect_uri=http://localhost:8080/api/v1/login/oauth/&client_id=184642286173-vkd43ig36jr6ui7e4a5r01mtb81ehdo1.apps.googleusercontent.com";
+        String redirectUrl = "https://accounts.google.com/o/oauth2/auth?scope=https://www.googleapis.com/auth/userinfo.email+https://www.googleapis.com/auth/userinfo.profile&response_type=code&access_type=offline&redirect_uri=http://localhost:8080/api/v1/login/oauth&client_id=184642286173-vkd43ig36jr6ui7e4a5r01mtb81ehdo1.apps.googleusercontent.com";
 
         return ResponseEntity
-                .status(HttpStatus.FOUND) // == 302
+                .status(HttpStatus.TEMPORARY_REDIRECT) //
                 .location(URI.create(redirectUrl))
                 .build();
     }
@@ -37,8 +37,8 @@ public class LoginController {
 
     @GetMapping("/oauth")
     public void googleLogin(@RequestParam String code){
-
-        googleOAuthService.signupAndGetJwtTokens(code);
+        System.out.println(code);
+        //googleOAuthService.signupAndGetJwtTokens(code);
     }
 
 

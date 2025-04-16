@@ -34,8 +34,5 @@ public class Member extends BaseTimeEntity {
         return new Member(email, nickname,role);
     }
 
-    @Getter
-    public enum Role {
-        USER,ADMIN;
-    }
+
 }

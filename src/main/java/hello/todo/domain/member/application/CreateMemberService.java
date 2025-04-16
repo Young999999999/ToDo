@@ -2,6 +2,7 @@ package hello.todo.domain.member.application;
 
 import hello.todo.domain.member.domain.Member;
 import hello.todo.domain.member.domain.MemberRepository;
+import hello.todo.domain.member.domain.Role;
 import hello.todo.domain.member.presentation.dto.request.CreateMemberReqDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties;
@@ -16,7 +17,7 @@ public class CreateMemberService {
     private final MemberRepository memberRepository;
 
     public void createMember(CreateMemberReqDTO dto){
-        Member member = Member.of(dto.email(),dto.nickname());
+        Member member = Member.of(dto.email(),dto.nickname(), Role.ROLE_USER);
 
         memberRepository.save(member);
 

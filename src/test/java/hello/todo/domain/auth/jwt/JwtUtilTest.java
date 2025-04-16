@@ -1,6 +1,6 @@
 package hello.todo.domain.auth.jwt;
 
-import org.junit.jupiter.api.Assertions;
+import hello.todo.domain.member.domain.Role;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -17,7 +17,7 @@ class JwtUtilTest {
         Long userId = 1L;
 
         //when
-        String token = jwtUtil.generateAccessToken(userId);
+        String token = jwtUtil.generateAccessToken(userId, Role.ROLE_USER);
 
         //then
         assertNotNull(token);
@@ -41,7 +41,7 @@ class JwtUtilTest {
     void validateToken() {
         //given
         Long userId = 1L;
-        String token = jwtUtil.generateAccessToken(userId);
+        String token = jwtUtil.generateAccessToken(userId,Role.ROLE_USER);
 
         //when
         boolean result = jwtUtil.validateToken(token);
@@ -55,7 +55,7 @@ class JwtUtilTest {
     void getUserIdFromToken() {
         //given
         Long userId = 1L;
-        String token = jwtUtil.generateAccessToken(userId);
+        String token = jwtUtil.generateAccessToken(userId,Role.ROLE_USER);
 
         //when
         Long extractUserId = jwtUtil.getUserIdFromToken(token);

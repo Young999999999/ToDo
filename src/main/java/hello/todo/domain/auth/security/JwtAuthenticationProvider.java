@@ -1,6 +1,6 @@
 package hello.todo.domain.auth.security;
 
-import hello.todo.domain.member.domain.Member;
+import hello.todo.domain.member.domain.Role;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.core.Authentication;
@@ -17,7 +17,7 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
         throw new AuthenticationServiceException("wrong authentication method");
     }
 
-    public Authentication authenticate(Long userId, Member.Role role) throws AuthenticationException {
+    public Authentication authenticate(Long userId, Role role) throws AuthenticationException {
         JwtUserDetails userDetails = new JwtUserDetails(userId, List.of(new SimpleGrantedAuthority(role.name())));
         return new JwtAuthenticationToken(userDetails.getAuthorities(),userDetails,null);
     }
