@@ -1,12 +1,11 @@
 package hello.todo.domain.auth.jwt;
 
-import hello.todo.domain.auth.jwt.exception.CustomExpiredJwtException;
-import hello.todo.domain.auth.jwt.exception.InvalidJwtException;
+import hello.todo.domain.common.exception.CustomException;
+import hello.todo.domain.common.exception.ErrorCode;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
+
 
 import java.security.Key;
 import java.time.*;
@@ -72,9 +71,9 @@ public class JwtUtil {
                     .getBody();
 
         } catch (ExpiredJwtException e) {
-            throw new CustomExpiredJwtException("만료된 토큰입니다.");
+            throw new CustomException(ErrorCode.JWT_EXPIRED);
         } catch (JwtException e) {
-            throw new InvalidJwtException("유효하지 않은 토큰입니다.");
+            throw new CustomException(ErrorCode.JWT_INVALID);
         }
     }
 
