@@ -1,6 +1,6 @@
 package hello.todo.domain.task.domain;
 
-import hello.todo.common.BaseTimeEntity;
+import hello.todo.domain.common.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;

@@ -1,6 +1,7 @@
 package hello.todo.domain.routine.application;
 
-import hello.todo.common.exception.NotFoundException;
+import hello.todo.domain.common.exception.CustomException;
+import hello.todo.domain.common.exception.ErrorCode;
 import hello.todo.domain.routine.domain.Routine;
 import hello.todo.domain.routine.domain.RoutineRepository;
 import hello.todo.domain.routine.presentation.dto.response.RoutineDetailResponse;
@@ -18,7 +19,7 @@ public class RoutineQueryService {
     @Transactional(readOnly = true)
     public RoutineDetailResponse getRoutineDetail(long routineId, long memberId){
         Routine routine = routineRepository.findRoutineByIdAndMemberId(routineId,memberId)
-                .orElseThrow(() -> new NotFoundException("존재하지 않는 루틴입니다."));
+                .orElseThrow(() -> new CustomException(ErrorCode.ROUTINE_NOT_FOUND));
 
         return RoutineDetailResponse.from(routine);
     }

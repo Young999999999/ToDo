@@ -2,10 +2,7 @@ package hello.todo.domain.auth.jwt;
 
 import hello.todo.domain.auth.jwt.exception.CustomExpiredJwtException;
 import hello.todo.domain.auth.jwt.exception.InvalidJwtException;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,14 +11,12 @@ import org.springframework.stereotype.Component;
 import java.security.Key;
 import java.time.*;
 import java.util.Date;
-import java.util.Optional;
 
-@Component
+
 @RequiredArgsConstructor
 public class JwtUtil {
 
-    @Value("${spring.jwt.secret-key}")
-    private String secret;
+    private final String secret;
 
     private Key getSigningKey() {
         return Keys.hmacShaKeyFor(secret.getBytes());
@@ -47,10 +42,10 @@ public class JwtUtil {
                 .compact();
     }
 
-    public boolean validateTokenAndId(String token,Long userId) {
-        Long tokenUserId = getUserIdFromToken(token);
-        return (tokenUserId.equals(userId) && !isTokenExpired(token));
-    }
+//    public boolean validateTokenAndId(String token,Long userId) {
+//        Long tokenUserId = getUserIdFromToken(token);
+//        return (tokenUserId.equals(userId) && !isTokenExpired(token));
+//    }
 
     public boolean validateToken(String token) {
         return !isTokenExpired(token);
@@ -78,7 +73,7 @@ public class JwtUtil {
 
         } catch (ExpiredJwtException e) {
             throw new CustomExpiredJwtException("만료된 토큰입니다.");
-        } catch (Exception e) {
+        } catch (JwtException e) {
             throw new InvalidJwtException("유효하지 않은 토큰입니다.");
         }
     }
