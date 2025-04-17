@@ -16,8 +16,8 @@ public class CreateMemberService {
 
     private final MemberRepository memberRepository;
 
-    public void createMember(CreateMemberReqDTO dto){
-        Member member = Member.of(dto.email(),dto.nickname(), Role.ROLE_USER);
+    public void createMember(CreateMemberReqDTO dto,Long sub){
+        Member member = Member.of(dto.email(),dto.nickname(), Role.ROLE_USER,sub);
 
         memberRepository.save(member);
 

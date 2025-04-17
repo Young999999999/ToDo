@@ -18,7 +18,7 @@ public class MemberController {
 
     @PostMapping
     public void createMember(@RequestBody @Valid CreateMemberReqDTO dto){
-        createMemberService.createMember(dto);
+        createMemberService.createMember(dto,1L);
     }
 
 }

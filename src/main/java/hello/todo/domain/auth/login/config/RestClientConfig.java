@@ -16,12 +16,4 @@ public class RestClientConfig {
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_FORM_URLENCODED_VALUE)
                 .build();
     }
-
-    @Bean(value = "googleTokenClient")
-    public RestClient googleTokenRestClient() {
-        return RestClient.builder()
-                .baseUrl("https://www.googleapis.com")
-                .build();
-    }
-
 }

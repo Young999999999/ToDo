@@ -1,9 +1,12 @@
 package hello.todo.domain.common.exception;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 @AllArgsConstructor
+@Getter
 public class ErrorResponseEntity {
     private int status;
     private String name;
