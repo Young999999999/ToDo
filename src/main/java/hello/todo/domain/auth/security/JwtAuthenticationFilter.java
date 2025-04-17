@@ -1,7 +1,8 @@
 package hello.todo.domain.auth.security;
 
 import hello.todo.domain.auth.jwt.JwtUtil;
-import hello.todo.domain.member.domain.Member;
+import hello.todo.domain.common.exception.CustomException;
+import hello.todo.domain.common.exception.ErrorCode;
 import hello.todo.domain.member.domain.Role;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -15,10 +16,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
-import java.util.List;
-import java.io.IOException;
 
-import static hello.todo.domain.member.domain.Member.*;
+import java.io.IOException;
 
 @Component
 @Slf4j
@@ -39,25 +38,32 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             return;
         }
 
-        String token = getTokenAndValidateJwtRequest(request);
-        Role role = jwtUtil.getRoleFromToken(token);
-        Long userId = jwtUtil.getUserIdFromToken(token);
+        //JWT 관련 에러를 처리하기 위함.
+        try {
+            String token = getTokenAndValidateJwtRequest(request);
+            Role role = jwtUtil.getRoleFromToken(token);
+            Long userId = jwtUtil.getUserIdFromToken(token);
 
-
-        log.info("userId = {}, role = {} ",userId.toString(),role.name());
-        Authentication authentication =  jwtAuthenticationProvider.authenticate(userId,role);
-        SecurityContext securityContext = SecurityContextHolder.getContextHolderStrategy().getContext();
-        securityContext.setAuthentication(authentication);
-        SecurityContextHolder.getContextHolderStrategy().setContext(securityContext);
-
+            log.info("userId = {}, role = {} ", userId.toString(), role.name());
+            Authentication authentication = jwtAuthenticationProvider.authenticate(userId, role);
+            SecurityContext securityContext = SecurityContextHolder.getContextHolderStrategy().getContext();
+            securityContext.setAuthentication(authentication);
+            SecurityContextHolder.getContextHolderStrategy().setContext(securityContext);
+        } catch (CustomException e){
+            request.setAttribute("errorCode", e.getErrorCode());
+        }
 
         //다음 필터로 넘어가기 위해 필수이다.
         filterChain.doFilter(request, response);
     }
 
     private String getTokenAndValidateJwtRequest(HttpServletRequest request) {
-
         String jwtHeader = request.getHeader("Authorization");
+
+        if(!StringUtils.hasText(jwtHeader) || !jwtHeader.startsWith("Bearer ")) {
+            throw  new CustomException(ErrorCode.JWT_INVALID);
+        }
+
         return jwtHeader.replace("Bearer ","");
     }
 

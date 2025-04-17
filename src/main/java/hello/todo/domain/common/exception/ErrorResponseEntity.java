@@ -2,7 +2,6 @@ package hello.todo.domain.common.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 @AllArgsConstructor
@@ -16,6 +15,11 @@ public class ErrorResponseEntity {
     public static ResponseEntity<ErrorResponseEntity> toResponseEntity(ErrorCode e){
         return ResponseEntity
                 .status(e.getHttpStatus())
-                .body(new ErrorResponseEntity(e.getHttpStatus().value(),e.name(),e.getCode(),e.getMessage()));
+                .body(ErrorResponseEntity.of(e));
     }
+
+    public static ErrorResponseEntity of(ErrorCode e) {
+        return new ErrorResponseEntity(e.getHttpStatus().value(), e.name(), e.getCode(), e.getMessage());
+    }
+
 }
