@@ -1,4 +1,4 @@
-package hello.todo.domain.auth.service.dto.response;
+package hello.todo.domain.auth.infra.dto.response;
 
 public record GoogleUserInfoResDTO(
         String id,

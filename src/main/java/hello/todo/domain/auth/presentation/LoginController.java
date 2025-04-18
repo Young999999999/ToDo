@@ -1,6 +1,6 @@
-package hello.todo.domain.auth.controller;
+package hello.todo.domain.auth.presentation;
 
-import hello.todo.domain.auth.service.GoogleOAuthService;
+import hello.todo.domain.auth.application.GoogleOAuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

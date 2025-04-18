@@ -1,5 +1,6 @@
 package hello.todo.domain.auth.jwt;
 
+import hello.todo.domain.common.jwt.JwtUtil;
 import hello.todo.domain.member.domain.Role;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

@@ -5,10 +5,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-public interface MemberRepository{
+@Repository
+public interface MemberRepository extends JpaRepository<Member, Long>{
 
     Optional<Member> findMemberById(Long memberId);
-
-    Member save(Member member);
 
 }

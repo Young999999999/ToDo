@@ -1,4 +1,4 @@
-package hello.todo.domain.auth.controller;
+package hello.todo.domain.auth.presentation;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

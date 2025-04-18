@@ -1,4 +1,4 @@
-package hello.todo.domain.auth.config;
+package hello.todo.domain.auth.infra.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

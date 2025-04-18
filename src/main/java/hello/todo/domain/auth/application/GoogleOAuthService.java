@@ -1,9 +1,9 @@
-package hello.todo.domain.auth.service;
+package hello.todo.domain.auth.application;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import hello.todo.domain.auth.service.dto.response.GoogleAccessTokenResDTO;
+import hello.todo.domain.auth.infra.dto.response.GoogleAccessTokenResDTO;
 import hello.todo.domain.common.exception.CustomException;
 import hello.todo.domain.common.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
