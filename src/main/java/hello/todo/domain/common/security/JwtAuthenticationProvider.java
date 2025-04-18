@@ -1,4 +1,4 @@
-package hello.todo.domain.auth.security;
+package hello.todo.domain.common.security;
 
 import hello.todo.domain.member.domain.Role;
 import org.springframework.security.authentication.AuthenticationProvider;

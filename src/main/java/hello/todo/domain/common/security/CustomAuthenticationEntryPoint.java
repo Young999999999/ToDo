@@ -1,4 +1,4 @@
-package hello.todo.domain.auth.security;
+package hello.todo.domain.common.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import hello.todo.domain.common.exception.ErrorCode;

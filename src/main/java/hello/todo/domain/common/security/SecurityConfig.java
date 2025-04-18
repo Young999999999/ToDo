@@ -1,4 +1,4 @@
-package hello.todo.domain.auth.security;
+package hello.todo.domain.common.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

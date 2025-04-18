@@ -1,4 +1,4 @@
-package hello.todo.domain.auth.jwt;
+package hello.todo.domain.common.jwt;
 
 import hello.todo.domain.common.exception.CustomException;
 import hello.todo.domain.common.exception.ErrorCode;

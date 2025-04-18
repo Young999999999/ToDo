@@ -1,4 +1,4 @@
-package hello.todo.domain.auth.security;
+package hello.todo.domain.common.security;
 
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;

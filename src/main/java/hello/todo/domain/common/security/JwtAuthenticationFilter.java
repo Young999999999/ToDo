@@ -1,6 +1,6 @@
-package hello.todo.domain.auth.security;
+package hello.todo.domain.common.security;
 
-import hello.todo.domain.auth.jwt.JwtUtil;
+import hello.todo.domain.common.jwt.JwtUtil;
 import hello.todo.domain.common.exception.CustomException;
 import hello.todo.domain.common.exception.ErrorCode;
 import hello.todo.domain.member.domain.Role;

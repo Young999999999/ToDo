@@ -1,4 +1,4 @@
-package hello.todo.domain.auth.jwt;
+package hello.todo.domain.common.jwt;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
