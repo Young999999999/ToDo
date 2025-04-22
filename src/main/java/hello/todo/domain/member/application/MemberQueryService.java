@@ -2,23 +2,19 @@ package hello.todo.domain.member.application;
 
 import hello.todo.domain.member.domain.Member;
 import hello.todo.domain.member.domain.MemberRepository;
-import hello.todo.domain.member.domain.Role;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
-public class CreateMemberService {
+public class MemberQueryService {
 
     private final MemberRepository memberRepository;
 
-    @Transactional
-    public Long createMember(Long sub){
-        Member member = Member.of(Role.ROLE_USER,sub);
-        memberRepository.save(member);
-        return member.getId();
+    Optional<Member> findBySub(Long sub){
+        return memberRepository.findMemberBySub(sub);
     }
-
 
 }
