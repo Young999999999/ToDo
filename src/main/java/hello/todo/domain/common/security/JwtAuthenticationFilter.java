@@ -1,8 +1,9 @@
 package hello.todo.domain.common.security;
 
-import hello.todo.domain.common.jwt.JwtUtil;
 import hello.todo.domain.common.exception.CustomException;
 import hello.todo.domain.common.exception.ErrorCode;
+import hello.todo.domain.common.jwt.JwtParser;
+import hello.todo.domain.common.jwt.JwtProvider;
 import hello.todo.domain.member.domain.Role;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -24,7 +25,7 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    private final JwtUtil jwtUtil;
+    private final JwtParser jwtParser;
     private final JwtAuthenticationProvider jwtAuthenticationProvider;
 
     @Override
@@ -41,8 +42,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         //JWT 관련 에러를 처리하기 위함.
         try {
             String token = getTokenAndValidateJwtRequest(request);
-            Role role = jwtUtil.getRoleFromToken(token);
-            Long userId = jwtUtil.getUserIdFromToken(token);
+            Role role = jwtParser.getRoleFromToken(token);
+            Long userId = jwtParser.getUserIdFromToken(token);
 
             log.info("userId = {}, role = {} ", userId.toString(), role.name());
             Authentication authentication = jwtAuthenticationProvider.authenticate(userId, role);
