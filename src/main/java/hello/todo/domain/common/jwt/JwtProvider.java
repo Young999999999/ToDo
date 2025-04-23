@@ -1,14 +1,13 @@
 package hello.todo.domain.common.jwt;
 
+import hello.todo.domain.common.jwt.dto.AuthToken;
 import hello.todo.domain.member.domain.Role;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
 
 import java.security.Key;
 import java.time.Duration;
-import java.time.Instant;
 import java.util.Date;
 
 @RequiredArgsConstructor
@@ -20,32 +19,40 @@ public class JwtProvider {
         return this.secretKey;
     }
 
-    public String generateAccessToken(Long userId, Role role) {
+    private String generateAccessToken(Long memberId, Role role, Date issuedAt) {
 
         return Jwts.builder()
-                .setSubject(userId.toString())
-                .claim("role",role.name())
-                .setIssuedAt(new Date())
-                .setExpiration(getExpirationDateAfter1hour())
+                .setSubject(memberId.toString())
+                .claim("role", role.name())
+                .setIssuedAt(issuedAt)
+                .setExpiration(getExpirationDateAfter1hour(issuedAt))
                 .signWith(getSecretKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
 
-    public String generateRefreshToken(Long userId) {
+    private String generateRefreshToken(Long memberId, Date issuedAt, Date accessTokenExpiration) {
 
         return Jwts.builder()
-                .setSubject(userId.toString())
-                .setIssuedAt(new Date())
-                .setExpiration(getExpirationDateAfter14Days())
+                .setSubject(memberId.toString())
+                .claim("accessTokenExpiration", accessTokenExpiration)
+                .setIssuedAt(issuedAt)
+                .setExpiration(getExpirationDateAfter14Days(issuedAt))
                 .signWith(getSecretKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
 
-    private Date getExpirationDateAfter14Days(){
-        return Date.from(Instant.now().plus(Duration.ofDays(14)));
+    public AuthToken generateAuthToken(Long memberId, Role role) {
+        Date now = new Date();
+        String accessToken = generateAccessToken(memberId, role, now);
+        String refreshToken = generateRefreshToken(memberId, now, getExpirationDateAfter1hour(now));
+        return AuthToken.of(accessToken, refreshToken);
     }
 
-    private Date getExpirationDateAfter1hour(){
-        return Date.from(Instant.now().plus(Duration.ofHours(1L)));
+    private Date getExpirationDateAfter14Days(Date issuedAt) {
+        return Date.from(issuedAt.toInstant().plus(Duration.ofDays(14)));
+    }
+
+    private Date getExpirationDateAfter1hour(Date issuedAt) {
+        return Date.from(issuedAt.toInstant().plus(Duration.ofHours(1L)));
     }
 }

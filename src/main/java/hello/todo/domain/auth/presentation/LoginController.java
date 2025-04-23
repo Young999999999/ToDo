@@ -1,6 +1,7 @@
 package hello.todo.domain.auth.presentation;
 
 import hello.todo.domain.auth.application.GoogleOAuthService;
+import hello.todo.domain.auth.presentation.dto.response.SignUpResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,8 +31,8 @@ public class LoginController {
 
 
     @GetMapping("/oauth/signup")
-    public void googleLogin(@RequestParam("code") String code){
-        googleOAuthService.signUp(code);
+    public SignUpResponse googleLogin(@RequestParam("code") String code){
+        return googleOAuthService.signUp(code);
     }
 
 

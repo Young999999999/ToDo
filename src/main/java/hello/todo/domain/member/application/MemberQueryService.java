@@ -13,7 +13,7 @@ public class MemberQueryService {
 
     private final MemberRepository memberRepository;
 
-    Optional<Member> findBySub(Long sub){
+    public Optional<Member> findBySub(String sub) {
         return memberRepository.findMemberBySub(sub);
     }
 

@@ -7,12 +7,12 @@ import hello.todo.domain.member.domain.MemberRepository;
 
 public final class MemberServiceHelper {
 
-        public static Member findExistingMember(MemberRepository memberRepository, Long memberId){
-            Member member = memberRepository.findMemberById(memberId)
-                    .orElseThrow(() -> new CustomException(ErrorCode.MEMBER_NOT_FOUND));
+    public static Member findExistingMember(MemberRepository memberRepository, Long memberId) {
+        Member member = memberRepository.findMemberById(memberId)
+                .orElseThrow(() -> new CustomException(ErrorCode.MEMBER_NOT_FOUND));
 
-            return member;
-        }
+        return member;
+    }
 
 }
 
