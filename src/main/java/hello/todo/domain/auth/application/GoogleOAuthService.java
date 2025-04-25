@@ -15,8 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
-import java.util.Optional;
-
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -29,11 +27,11 @@ public class GoogleOAuthService {
     private final JwtProvider jwtProvider;
     private final CreateRefreshTokenService createRefreshTokenService;
 
-    public SignUpResponse signUp(String code) {
+    public AuthToken signUp(String code) {
         MultiValueMap<String, String> map = buildTokenRequestMap(code);
         String sub = oAuthClient.exchangeCodeToSub(map);
 
-        Long memberId = memberQueryService.findBySub(sub)
+        Long memberId = memberQueryService.findMemberBySub(sub)
                 .map(Member::getId)
                 .orElseGet(() -> {
                     log.info("신규 멤버 가입 sub = {}",sub);
@@ -42,7 +40,7 @@ public class GoogleOAuthService {
 
         AuthToken authToken = jwtProvider.generateAuthToken(memberId, Role.ROLE_USER);
         createRefreshTokenService.createRefreshToken(memberId, authToken.refreshToken());
-        return SignUpResponse.from(authToken);
+        return authToken;
     }
 
     private MultiValueMap<String, String> buildTokenRequestMap(String code) {

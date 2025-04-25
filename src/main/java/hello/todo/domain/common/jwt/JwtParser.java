@@ -51,4 +51,14 @@ public class JwtParser {
         }
     }
 
+    //에세스토큰 만료시간보다 리프레시 토큰이 먼저 접근되었는지 검증한다.
+    public boolean validateRefreshTokenByAccessTokenExpiration(String token) {
+        Claims claims = getAllClaimsFromToken(token);
+        Date accessTokenExpiration = claims.get("accessTokenExpiration", Date.class);
+        if(accessTokenExpiration.before(new Date())){
+            throw new CustomException(ErrorCode.REFRESH_TOKEN_EARLY_ACCESS);
+        }
+        return true;
+    }
+
 }
