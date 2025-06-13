@@ -26,7 +26,7 @@ public class RoutineController {
     //TODO: 세션으로 멤버 ID 갖고 오기
     @PostMapping("/{memberId}")
     public void addRoutine(@RequestBody @Valid CreateRoutineRequest createRoutineRequest, @PathVariable Long memberId) {
-        addRoutineService.createRoutine(createRoutineRequest, memberId);
+        //addRoutineService.createRoutine(createRoutineRequest, memberId);
     }
 
     //루틴 삭제하기

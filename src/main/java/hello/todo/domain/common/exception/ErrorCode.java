@@ -13,6 +13,7 @@ public enum ErrorCode {
 
     //ROUTINE
     ROUTINE_NOT_FOUND(HttpStatus.NOT_FOUND,"ROUTINE-001","루틴이 존재하지 않습니다."),
+    ROUTINE_DATE_INVALID(HttpStatus.BAD_REQUEST,"ROUTINE-002","루틴의 시작 날짜, 종료 날짜가 올바르지 않습니다."),
 
     //Other Error
     UNKNOWN_ERROR(HttpStatus.INTERNAL_SERVER_ERROR,"UNKNOWN-001","알 수 없는 에러입니다."),
