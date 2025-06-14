@@ -1,6 +1,11 @@
 package hello.todo.domain.auth.domain;
 
 import hello.todo.domain.common.BaseTimeEntity;
+import hello.todo.domain.common.exception.CustomException;
+import hello.todo.domain.common.exception.ErrorCode;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtException;
+import io.jsonwebtoken.Jwts;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -17,14 +22,15 @@ public class RefreshToken extends BaseTimeEntity {
 
     Long memberId;
 
-    String refreshToken;
+    String token;
 
-    private RefreshToken(Long memberId, String refreshToken) {
+    private RefreshToken(Long memberId, String token) {
         this.memberId = memberId;
-        this.refreshToken = refreshToken;
+        this.token = token;
     }
 
-    public static RefreshToken of(long memberId, String refreshToken){
-        return new RefreshToken(memberId,refreshToken);
+    public static RefreshToken of(Long memberId, String token){
+        return new RefreshToken(memberId,token);
     }
+
 }

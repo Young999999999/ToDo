@@ -20,22 +20,19 @@ public class Member extends BaseTimeEntity {
 
     private String nickname;
 
-    private Long sub;
+    private String sub;
 
     @Enumerated(value = EnumType.STRING)
     private Role role;
 
     //팩토리 메서드 패턴
-    private Member(String email, String nickname,Role role,Long sub) {
-        this.email = email;
-        this.nickname = nickname;
+    private Member(Role role, String sub) {
         this.role = role;
         this.sub = sub;
     }
 
-    static public Member of(String email, String nickname,Role role,Long sub) {
-        return new Member(email, nickname,role,sub);
+    static public Member of(Role role, String sub) {
+        return new Member(role, sub);
     }
-
 
 }
