@@ -1,7 +1,6 @@
 package hello.todo.domain.routine.application;
 
 import hello.todo.domain.member.application.MemberQueryService;
-import hello.todo.domain.member.domain.MemberRepository;
 import hello.todo.domain.routine.domain.Day;
 import hello.todo.domain.routine.domain.Routine;
 import hello.todo.domain.routine.domain.RoutineRepository;
@@ -25,6 +24,8 @@ public class CreateRoutineService {
         memberQueryService.findExistingMember(memberId);
         Routine routine = Routine.of(memberId, routineName, days, startDate, endDate);
         routineRepository.save(routine);
+
+        //TODO refator: startDate가 오늘이라면 routineId를 이용한 일정 생성 이벤트를 발행한다.
         return routine.getId();
     }
 }

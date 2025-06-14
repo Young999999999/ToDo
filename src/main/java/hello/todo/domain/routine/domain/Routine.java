@@ -39,12 +39,11 @@ public class Routine extends BaseTimeEntity {
     @Enumerated(value = EnumType.STRING)
     Set<Day> days = new HashSet<>();
 
-    // 멤버 팩토리 메소드를
+    //루틴 팩토리 메소드를 위한 생성자
     private Routine(Long memberId, String name, Set<Day> days, LocalDate startDate, LocalDate endDate) {
         this.memberId = memberId;
         this.name = name;
         this.days = days;
-        //setCycles(cycles);
         this.startDate = startDate;
         this.endDate = endDate;
     }
