@@ -4,7 +4,7 @@ import hello.todo.domain.common.exception.CustomException;
 import hello.todo.domain.member.application.CreateMemberService;
 import hello.todo.domain.member.domain.Member;
 import hello.todo.domain.member.domain.Role;
-import hello.todo.domain.member.presentation.dto.request.CreateMemberReqDTO;
+import hello.todo.domain.routine.application.command.CreateRoutineCommand;
 import hello.todo.domain.routine.domain.Day;
 import hello.todo.domain.routine.domain.Routine;
 import hello.todo.domain.routine.domain.RoutineRepository;
@@ -49,9 +49,10 @@ class CreateRoutineServiceTest {
         days.add(Day.MON);
         days.add(Day.WED);
         days.add(Day.FRI);
+        CreateRoutineCommand command = new CreateRoutineCommand(routineName,startDate,endDate,days);
 
         //when
-        Long routineId = createRoutineService.createRoutine(member.getId(), routineName, startDate, endDate, days);
+        Long routineId = createRoutineService.createRoutine(member.getId(), command);
 
         //then
         Routine routine = routineRepository.findRoutineByIdAndMemberId(routineId, member.getId()).get();
@@ -63,7 +64,7 @@ class CreateRoutineServiceTest {
     }
 
     @Test
-    void 루틴_생성_날짜오류(){
+    void 루틴_생성_날짜오류() {
         //given
         Member member = createMember();
 
@@ -74,14 +75,16 @@ class CreateRoutineServiceTest {
         days.add(Day.MON);
         days.add(Day.WED);
         days.add(Day.FRI);
+        CreateRoutineCommand command = new CreateRoutineCommand(routineName,startDate,endDate,days);
 
         //when & then
-        assertThrows(CustomException.class,() ->{
-            createRoutineService.createRoutine(member.getId(), routineName, startDate, endDate, days);
+        assertThrows(CustomException.class, () -> {
+            createRoutineService.createRoutine(member.getId(), command);
         });
     }
-    private Member createMember(){
-        Member member = Member.of("test@email", "testNickname", Role.ROLE_USER, 1L);
+
+    private Member createMember() {
+        Member member = Member.of("test@email", "testNickname", Role.ROLE_USER, "1");
         em.persist(member);
         return member;
     }

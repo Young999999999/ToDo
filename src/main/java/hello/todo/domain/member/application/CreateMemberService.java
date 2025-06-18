@@ -15,7 +15,7 @@ public class CreateMemberService {
 
     @Transactional
     public Long createMember(String sub) {
-        Member member = Member.of(Role.ROLE_USER, sub);
+        Member member = Member.of("email","nickName",Role.ROLE_USER, sub);
         memberRepository.save(member);
         return member.getId();
     }
