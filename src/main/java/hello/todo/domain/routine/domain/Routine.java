@@ -39,6 +39,18 @@ public class Routine extends BaseTimeEntity {
     @Enumerated(value = EnumType.STRING)
     Set<Day> days = new HashSet<>();
 
+    public void changeName(String newName) {
+        this.name = newName;
+    }
+
+    public void changeDays(Set<Day> newDays){
+        this.days = newDays;
+    }
+
+    public void changeEndDate(LocalDate newEndDate){
+        this.endDate = newEndDate;
+    }
+
     //루틴 팩토리 메소드를 위한 생성자
     private Routine(Long memberId, String name, Set<Day> days, LocalDate startDate, LocalDate endDate) {
         this.memberId = memberId;

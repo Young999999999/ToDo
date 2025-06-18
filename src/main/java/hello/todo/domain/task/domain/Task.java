@@ -23,13 +23,9 @@ public class Task extends BaseTimeEntity {
 
     private String name;
 
-    private String title;
+    private LocalDate date;
 
-    private String content;
-
-    private LocalDate taskDate;
-
-    private boolean isCompleted;
+    private boolean isDone;
 
     @Enumerated(value = EnumType.STRING)
     private Type type;

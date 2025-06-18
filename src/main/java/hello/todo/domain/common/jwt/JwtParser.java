@@ -9,11 +9,13 @@ import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.security.Key;
 import java.util.Date;
 
 @RequiredArgsConstructor
+@Slf4j
 public class JwtParser {
 
     private final Key secretKey;
@@ -47,6 +49,7 @@ public class JwtParser {
         } catch (ExpiredJwtException e) {
             throw new CustomException(ErrorCode.JWT_EXPIRED);
         } catch (JwtException e) {
+            e.printStackTrace();
             throw new CustomException(ErrorCode.JWT_INVALID);
         }
     }

@@ -31,10 +31,12 @@ public class GoogleOAuthService {
         MultiValueMap<String, String> map = buildTokenRequestMap(code);
         String sub = oAuthClient.exchangeCodeToSub(map);
 
+        //구글 sub 기반 회원이 존재하지 않는다면 신규 회원 가입.
         Long memberId = memberQueryService.findMemberBySub(sub)
                 .map(Member::getId)
                 .orElseGet(() -> {
                     log.info("신규 멤버 가입 sub = {}",sub);
+                    //TODO : 구글 API를 사용해 Google email,name 기반 회원 가입하기
                     return createMemberService.createMember(sub);
                 });
 
@@ -48,7 +50,8 @@ public class GoogleOAuthService {
         map.add("grant_type", "authorization_code");
         map.add("code", code);
         map.add("client_id", "184642286173-vkd43ig36jr6ui7e4a5r01mtb81ehdo1.apps.googleusercontent.com");
-        map.add("redirect_uri", "https://www.ddeng-gu.shop/api/v1/login/oauth/signup");
+        //map.add("redirect_uri", "https://www.ddeng-gu.shop/api/v1/login/oauth/signup");
+        map.add("redirect_uri", "http://localhost:8080/api/v1/login/oauth/signup");
         map.add("client_secret", "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");
 
         return map;

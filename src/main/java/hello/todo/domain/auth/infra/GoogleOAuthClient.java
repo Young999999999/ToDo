@@ -57,6 +57,7 @@ public class GoogleOAuthClient implements OAuthClient {
                 .body(map)
                 .retrieve()
                 .onStatus(HttpStatusCode::is4xxClientError, (req, res) -> {
+                    log.info(res.getStatusText());
                     throw new CustomException(ErrorCode.GOOGLE_4XX);
                 })
                 .onStatus(HttpStatusCode::is5xxServerError, (req, res) -> {

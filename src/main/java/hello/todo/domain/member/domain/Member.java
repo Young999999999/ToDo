@@ -26,13 +26,15 @@ public class Member extends BaseTimeEntity {
     private Role role;
 
     //팩토리 메서드 패턴
-    private Member(Role role, String sub) {
+    private Member(String email, String nickname, Role role, String sub) {
+        this.email = email;
+        this.nickname = nickname;
         this.role = role;
         this.sub = sub;
     }
 
-    static public Member of(Role role, String sub) {
-        return new Member(role, sub);
+    static public Member of(String email, String nickname, Role role, String sub) {
+        return new Member(email, nickname, role, sub);
     }
 
 }
