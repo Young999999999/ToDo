@@ -11,10 +11,10 @@ import java.util.List;
 public interface TaskRepository extends JpaRepository<Task,Long> {
 
     @Query("""
-    SELECT new hello.todo.domain.task.presentation.dto.response.TaskSummaryResponse(t.memberId,t.name,t.taskDate) FROM Task t 
+    SELECT new hello.todo.domain.task.presentation.dto.response.TaskSummaryResponse(t.memberId,t.name,t.date) FROM Task t 
     WHERE t.memberId = :memberId  
-    AND YEAR(t.taskDate) = :year 
-    AND MONTH(t.taskDate) = :month
+    AND YEAR(t.date) = :year 
+    AND MONTH(t.date) = :month
     """)
     List<TaskSummaryResponse> findTaskByMonth(@Param("memberId") Long memberId, @Param("year") int year, @Param("month") int month);
 }
