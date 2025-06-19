@@ -8,13 +8,16 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class JwtConfig {
 
+    @Value("${spring.jwt.secret-key}")
+    private String secretKey;
+
     @Bean
-    public JwtProvider jwtProvider(@Value("${spring.jwt.secret-key}") String secretKey) {
+    public JwtProvider jwtProvider() {
         return new JwtProvider(Keys.hmacShaKeyFor(secretKey.getBytes()));
     }
 
     @Bean
-    public JwtParser jwtParser(@Value("${spring.jwt.secret-key}") String secretKey) {
+    public JwtParser jwtParser() {
         return new JwtParser(Keys.hmacShaKeyFor(secretKey.getBytes()));
     }
 

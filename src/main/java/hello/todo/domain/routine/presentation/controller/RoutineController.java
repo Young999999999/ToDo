@@ -7,11 +7,13 @@ import hello.todo.domain.routine.application.RemoveRoutineService;
 import hello.todo.domain.routine.application.RoutineQueryService;
 import hello.todo.domain.routine.presentation.dto.request.ChangeRoutineRequest;
 import hello.todo.domain.routine.presentation.dto.request.CreateRoutineRequest;
-import hello.todo.domain.routine.presentation.dto.response.RoutineDetailResponse;
+import hello.todo.domain.routine.presentation.dto.response.GetRoutineResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -25,8 +27,24 @@ public class RoutineController {
 
     //TODO: 루틴 완료하기
 
+    //루틴 단건 조회하기
+    @GetMapping("/{routineId}")
+    public GetRoutineResponse getRoutine(
+            @AuthenticationPrincipal JwtUserDetails user,
+            @PathVariable Long routineId
+    ) {
+        return routineQueryService.findRoutine(routineId, user.getUserId());
+    }
+
+    //루틴 전체 조회하기
+    @GetMapping
+    public List<GetRoutineResponse> getAllRoutines(@AuthenticationPrincipal JwtUserDetails user) {
+        return routineQueryService.findAllRoutine(user.getUserId());
+    }
+
+
     //루틴 생성하기
-    @PostMapping()
+    @PostMapping
     public void createRoutine(
             @AuthenticationPrincipal JwtUserDetails user,
             @RequestBody @Valid CreateRoutineRequest request
@@ -49,13 +67,4 @@ public class RoutineController {
     ) {
         changeRoutineService.changeRoutine(routineId, user.getUserId(), request.toChangeRoutineCommand());
     }
-
-    //루틴 상세조회하기
-    @GetMapping("/{routineId}")
-    public RoutineDetailResponse getRoutineDetail(@PathVariable Long routineId) {
-        return routineQueryService.getRoutineDetail(1l, routineId);
-    }
-
-    //TODO: 루틴 한 달 단위로 조회하기
-
 }

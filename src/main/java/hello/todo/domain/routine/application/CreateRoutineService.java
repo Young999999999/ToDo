@@ -21,11 +21,10 @@ public class CreateRoutineService {
 
     @Transactional
     public Long createRoutine(Long memberId, CreateRoutineCommand command) {
-        //멤버 아이디 확인하기.
+        //존재하는 멤버인지 확인하기.
         memberQueryService.findExistingMember(memberId);
         Routine routine = Routine.of(memberId, command.routineName(), command.days(), command.startDate(), command.endDate());
         routineRepository.save(routine);
-
         //TODO refator: startDate가 오늘이라면 routineId를 이용한 일정 생성 이벤트를 발행한다.
         return routine.getId();
     }
