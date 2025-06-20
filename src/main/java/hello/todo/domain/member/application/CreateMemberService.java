@@ -1,5 +1,6 @@
 package hello.todo.domain.member.application;
 
+import hello.todo.domain.member.application.command.CreateMemberCommand;
 import hello.todo.domain.member.domain.Member;
 import hello.todo.domain.member.domain.MemberRepository;
 import hello.todo.domain.member.domain.Role;
@@ -14,10 +15,10 @@ public class CreateMemberService {
     private final MemberRepository memberRepository;
 
     @Transactional
-    public Long createMember(String sub) {
-        Member member = Member.of("email","nickName",Role.ROLE_USER, sub);
+    public Member createMember(CreateMemberCommand command) {
+        Member member = Member.of(command.email(), command.name(), Role.ROLE_USER, command.sub());
         memberRepository.save(member);
-        return member.getId();
+        return member;
     }
 
 
