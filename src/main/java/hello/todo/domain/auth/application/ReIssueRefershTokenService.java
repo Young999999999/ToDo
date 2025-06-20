@@ -29,7 +29,7 @@ public class ReIssueRefershTokenService {
         RefreshToken refreshToken = refreshTokenRepository.findByToken(refreshTokenValue)
                 .orElseThrow(() -> new CustomException(ErrorCode.REFRESH_TOKEN_NOT_FOUND));
 
-        //에세스토큰 만료시간 검증
+        //에세스토큰이 만료되기 전에 리프레시토큰으로 재발급 시도를 한다면 예외가 발생한다.
         jwtParser.validateRefreshTokenByAccessTokenExpiration(refreshToken.getToken());
         Long memberId = refreshToken.getMemberId();
         Role role = memberQueryService.findRoleByMemberId(memberId);

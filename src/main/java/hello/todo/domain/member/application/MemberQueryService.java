@@ -21,14 +21,13 @@ public class MemberQueryService {
                 .orElseThrow(() -> new CustomException(ErrorCode.MEMBER_NOT_FOUND));
     }
 
-    //TODO: google sub 기반 조회 구현.
     public Optional<Member> findMemberBySub(String sub) {
-        return Optional.empty();
+        return memberRepository.findBySub(sub);
     }
 
     //TODO: 재발급을 위한 유저 아이디 기반 권한 조회 구현
     public Role findRoleByMemberId(Long memberId) {
-        return Role.ROLE_USER;
+        return memberRepository.getRoleById(memberId);
     }
 
 }

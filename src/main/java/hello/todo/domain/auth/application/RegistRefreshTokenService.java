@@ -9,11 +9,11 @@ import org.springframework.stereotype.Service;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class CreateRefreshTokenService {
+public class RegistRefreshTokenService {
 
     private final RefreshTokenRepository refreshTokenRepository;
 
-    public void createRefreshToken(Long memberId, String token) {
+    public void regist(Long memberId, String token) {
         RefreshToken refreshToken = RefreshToken.of(memberId, token);
         refreshTokenRepository.save(refreshToken);
     }

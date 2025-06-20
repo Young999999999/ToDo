@@ -1,8 +1,11 @@
 package hello.todo.domain.auth.application;
 
-import org.springframework.util.MultiValueMap;
+import hello.todo.domain.auth.infra.dto.response.OAuthToken;
+import hello.todo.domain.auth.infra.dto.response.OAuthUserInfo;
 
 public interface OAuthClient {
 
-    String exchangeCodeToSub(MultiValueMap<String, String> map);
+    OAuthToken exchangeCodeToOAuthToken(String code);
+
+    OAuthUserInfo exchangeAccessTokenToUserInfo(String accessToken);
 }
