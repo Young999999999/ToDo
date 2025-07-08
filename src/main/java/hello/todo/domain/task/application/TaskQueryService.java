@@ -15,7 +15,7 @@ public class TaskQueryService {
     private final TaskRepository taskRepository;
 
     //날짜별 일정 간단조회
-    public List<TaskSummaryResponse> getTaskSummaryListByMonth(long memberId,int year, int month) {
+    public List<TaskSummaryResponse> getTaskSummaryListByMonth(Long memberId,int year, int month) {
         return taskRepository.findTaskByMonth(memberId,year,month);
     }
 

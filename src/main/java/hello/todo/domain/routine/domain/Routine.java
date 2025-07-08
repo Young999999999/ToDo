@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -18,7 +19,6 @@ import java.util.Set;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString
 public class Routine extends BaseTimeEntity {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,6 +49,12 @@ public class Routine extends BaseTimeEntity {
 
     public void changeEndDate(LocalDate newEndDate){
         this.endDate = newEndDate;
+    }
+
+    public boolean containsToday(){
+        DayOfWeek dayOfWeek = LocalDate.now().getDayOfWeek();
+        Day today = Day.from(dayOfWeek);
+        return days.contains(today);
     }
 
     //루틴 팩토리 메소드를 위한 생성자

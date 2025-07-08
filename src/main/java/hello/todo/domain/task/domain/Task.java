@@ -21,11 +21,11 @@ public class Task extends BaseTimeEntity {
 
     private Long routineId;
 
-    private String name;
+    private String title;
 
     private LocalDate date;
 
-    private boolean isDone;
+    private boolean isDone = false;
 
     @Enumerated(value = EnumType.STRING)
     private Type type;
@@ -34,6 +34,29 @@ public class Task extends BaseTimeEntity {
         NORMAL, ROUTINE
     }
 
+    //팩토리 메서드.
+    public static Task of(Long memberId, Long routineId, String title, LocalDate date,Type type){
+        return new Task(memberId, routineId, title, date, type);
+    }
+
+    public static Task of(Long memberId, String title, LocalDate date,Type type){
+        return new Task(memberId, title, date, type);
+    }
+
+    public Task (Long memberId, Long routineId, String title, LocalDate date,Type type){
+        this.memberId = memberId;
+        this.routineId = routineId;
+        this.title = title;
+        this.date = date;
+        this.type = type;
+    }
+
+    public Task (Long memberId, String title, LocalDate date,Type type){
+        this.memberId = memberId;
+        this.title = title;
+        this.date = date;
+        this.type = type;
+    }
 
 }
 

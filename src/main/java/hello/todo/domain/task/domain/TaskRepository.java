@@ -1,4 +1,5 @@
 package hello.todo.domain.task.domain;
+
 import hello.todo.domain.task.presentation.dto.response.TaskSummaryResponse;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -8,13 +9,13 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface TaskRepository extends JpaRepository<Task,Long> {
+public interface TaskRepository extends JpaRepository<Task, Long> {
 
     @Query("""
-    SELECT new hello.todo.domain.task.presentation.dto.response.TaskSummaryResponse(t.memberId,t.name,t.date) FROM Task t 
-    WHERE t.memberId = :memberId  
-    AND YEAR(t.date) = :year 
-    AND MONTH(t.date) = :month
-    """)
+            SELECT new hello.todo.domain.task.presentation.dto.response.TaskSummaryResponse(t.id,t.title,t.date) FROM Task t
+            WHERE t.memberId = :memberId
+            AND YEAR(t.date) = :year
+            AND MONTH(t.date) = :month
+            """)
     List<TaskSummaryResponse> findTaskByMonth(@Param("memberId") Long memberId, @Param("year") int year, @Param("month") int month);
 }

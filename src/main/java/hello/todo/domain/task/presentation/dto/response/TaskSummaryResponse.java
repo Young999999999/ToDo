@@ -4,8 +4,8 @@ import java.time.LocalDate;
 
 public record TaskSummaryResponse(
         Long taskId,
-        String name,
-        LocalDate taskDate
+        String title,
+        LocalDate date
 
 ) {
     public static TaskSummaryResponse from(Long taskId, String name, LocalDate taskDate){
